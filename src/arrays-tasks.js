@@ -390,6 +390,9 @@ function createChunks(arr, chunkSize) {
   const temp = createChunks(arrClone, chunkSize);
   temp.unshift(result);
   return temp;
+  // return new Array(Math.ceil(arr.length / chunkSize))
+  //   .fill(0)
+  //   .map((el, ind) => arr.slice(ind * chunkSize, ind * chunkSize + chunkSize));
 }
 
 /**
@@ -404,8 +407,8 @@ function createChunks(arr, chunkSize) {
  *    generateOdds(2) => [ 1, 3 ]
  *    generateOdds(5) => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(/* len */) {
-  throw new Error('Not implemented');
+function generateOdds(len) {
+  return Array.from({ length: len }, (item, index) => 2 * index + 1);
 }
 
 /**
@@ -420,8 +423,9 @@ function generateOdds(/* len */) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  return indices.reduce((acc, item) => acc[item], arr);
+  // return arr.flat(Infinity)[indexes[indices.length - 1]];
 }
 
 /**
@@ -436,8 +440,9 @@ function getElementByIndices(/* arr, indices */) {
  *  getFalsyValuesCount([ -1, 'false', null, 0 ]) => 2
  *  getFalsyValuesCount([ null, undefined, NaN, false, 0, '' ]) => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  return arr.filter((item) => Boolean(item) === false).length;
+  // return arr.filter((el) => !el).length;
 }
 
 /**
@@ -458,8 +463,17 @@ function getFalsyValuesCount(/* arr */) {
  *                              [0,0,0,1,0],
  *                              [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return Array(n)
+    .fill(0)
+    .map((item, index) =>
+      Array(n)
+        .fill(0)
+        .fill(1, index, index + 1)
+    );
+  //   return Array.from({ length: n }, (_, i) =>
+  //   Array.from({ length: n }, (__, j) => +(i === j))
+  // );
 }
 
 /**
@@ -473,8 +487,10 @@ function getIdentityMatrix(/* n */) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  return numbers
+    .map((item, index) => (item % 2 !== 0 ? index : null))
+    .filter((item) => typeof item === 'number');
 }
 
 /**
